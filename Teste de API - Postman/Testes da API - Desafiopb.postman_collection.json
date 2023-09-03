@@ -1,0 +1,442 @@
+{
+	"info": {
+		"_postman_id": "2395a4c1-43b9-406c-97b4-bf13575a234b",
+		"name": "Testes da API - DesafioPB",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "5413842"
+	},
+	"item": [
+		{
+			"name": "Sucesso",
+			"item": [
+				{
+					"name": "Retornar todos os Usuários",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Valida o response code",
+									"pm.test(\"O status code deve ser 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"// Salvando response em uma variável",
+									"const jsonData = pm.response.json();",
+									"",
+									"// Validações do contrato de sucesso",
+									"pm.test(\"O Body deve existir e não ser nulo\", () => {",
+									"  pm.expect(jsonData).not.null;",
+									"});",
+									"",
+									"// Validações do contrato de sucesso",
+									"pm.test(\"O Body deve consistir em um array de objetos\", () => {",
+									"  pm.expect(jsonData).to.be.an(\"array\");",
+									"  pm.expect(jsonData[0]).to.be.a(\"object\");",
+									"});",
+									"",
+									"// Validando campos esperados em chamada de sucesso, considerando que todas as informações são obigatórias e devem vir preenchidas",
+									"for (var i = 0; i < jsonData.length; i++) {",
+									"    var item = jsonData[i];",
+									"",
+									"    pm.test(`Todos os objetos do response devem possuir os mesmo campos  ${i}`, () => {",
+									"        pm.expect(item.id).exist;",
+									"        pm.expect(item.name).exist;",
+									"        pm.expect(item.username).exist;",
+									"        pm.expect(item.email).exist;",
+									"        pm.expect(item.address).exist;",
+									"        pm.expect(item.phone).exist;",
+									"        pm.expect(item.website).exist;",
+									"        pm.expect(item.company).exist;",
+									"    });",
+									"}",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/users/{{id_erro}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users",
+								"{{id_erro}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retornar um Usuário",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Valida o response code",
+									"pm.test(\"O status code deve ser 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"// Salvando response em uma variável",
+									"const jsonData = pm.response.json();",
+									"",
+									"// Validações do contrato de sucesso",
+									"pm.test(\"O Body deve existir e não ser nulo\", () => {",
+									"  pm.expect(jsonData).not.null;",
+									"});",
+									"",
+									"// Validações do contrato de sucesso",
+									"pm.test(\"O Body deve consistir em um array de objetos\", () => {",
+									"  pm.expect(jsonData).to.be.an(\"array\");",
+									"  pm.expect(jsonData[0]).to.be.a(\"object\");",
+									"});",
+									"",
+									"// Validando campos esperados em chamada de sucesso, considerando que todas as informações são obigatórias e devem vir preenchidas",
+									"pm.test(`Todos os objetos do response devem possuir os mesmo campos`, () => {",
+									"    pm.expect(jsonData.id).exist;",
+									"    pm.expect(jsonData.name).exist;",
+									"    pm.expect(jsonData.username).exist;",
+									"    pm.expect(jsonData.email).exist;",
+									"    pm.expect(jsonData.address).exist;",
+									"    pm.expect(jsonData.phone).exist;",
+									"    pm.expect(jsonData.website).exist;",
+									"    pm.expect(jsonData.company).exist;",
+									"});",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"function geradorDeID() {\r",
+									"  const numeroAleatorio = Math.random();\r",
+									"\r",
+									"  const numeroFinal = Math.floor(numeroAleatorio * 10) + 1;\r",
+									"\r",
+									"  return numeroFinal;\r",
+									"}\r",
+									"pm.environment.set(\"idValido\", geradorDeID());"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/users/{{idValido}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users",
+								"{{idValido}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Editar Usuário",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Valida o response code",
+									"pm.test(\"O Status code deve ser 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"// Verifica o tempo de response, mediana obtida pela execução dos testes exploratórios",
+									"pm.test(\"O tempo de resposta deve ser menor que 500ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);",
+									"});",
+									"",
+									"// Salvando response em uma variável",
+									"const jsonData = pm.response.json();",
+									"",
+									"// Validando contrato esperado em chamada de sucesso",
+									"pm.test(\"O body deve existir e possuir possuir o campo ID\", () => {",
+									"  pm.expect(jsonData).not.null;",
+									"  pm.expect(jsonData.id).exist;",
+									"});",
+									"",
+									"// Validando o tipo do response",
+									"pm.test(\"O body deve um ID numeral\", () => {",
+									"  pm.expect(jsonData.id).to.be.a(\"number\");",
+									"});",
+									"",
+									"// Validando o conteúdo do campo ID",
+									"pm.test(\"O ID deve ser: \" + pm.environment.get(\"idValido\"), () => {",
+									"    pm.expect(jsonData.id).to.be.equal(pm.environment.get(\"idValido\"));",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "  {\n        \"id\": 11,\n        \"name\": \"Nicholas Runolfsdottir V\",\n        \"username\": \"Maxime_Nienow\",\n        \"email\": \"Sherwood@rosamond.me\",\n        \"phone\": \"586.493.6943 x140\",\n        \"website\": \"jacynthe.com\",\n        \"company\": {\n            \"name\": \"Abernathy Group\",\n            \"catchPhrase\": \"Implemented secondary concept\",\n            \"bs\": \"e-enable extensible e-tailers\"\n        }\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/users/{{idValido}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users",
+								"{{idValido}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deletar Usuário",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Verifica os Status code de sucesso",
+									"pm.test(\"O status code deve ser 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"// Verifica o tempo de response, mediana obtida pela execução dos testes exploratórios",
+									"pm.test(\"O tempo de resposta deve ser menor que 500ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);",
+									"});",
+									"",
+									"// Salvando response em uma variável",
+									"const jsonData = pm.response.json();",
+									"",
+									"// Validando contrato esperado em chamada de sucesso",
+									"pm.test(\"O body da chamada DELETE deve ser vazio\", () => {",
+									"  pm.expect(jsonData).empty;",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/users/{{idValido}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users",
+								"{{idValido}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Criar Usuário",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"O status code deve ser um sucesso para o verbo POST\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([201, 202]);",
+									"});",
+									"",
+									"pm.test(\"O tempo de resposta deve ser menor que 500ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);",
+									"});",
+									"// Salvando response em uma variável",
+									"const jsonData = pm.response.json();",
+									"",
+									"// Validando o conteúdo do campo phone gerado",
+									"pm.test(\"O número de telefone deve ser: \" + pm.environment.get(\"nuTelefone\"), () => {",
+									"    pm.expect(jsonData.phone).to.be.equal(pm.environment.get(\"nuTelefone\"));",
+									"});",
+									"",
+									"// Validando o conteúdo do campo ID",
+									"pm.test(\"O ID deve ser: 11\", () => {",
+									"    pm.expect(jsonData.id).to.be.equal(11);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"function gerarNumeroTelefone() {\r",
+									"  const numero = Math.floor(Math.random() * 9000000000) + 1000000000;\r",
+									"  return numero.toString();\r",
+									"}\r",
+									"pm.environment.set(\"nuTelefone\", gerarNumeroTelefone());"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "  {\n        \"id\": 11,\n        \"name\": \"Nicholas Runolfsdottir V\",\n        \"username\": \"Maxime_Nienow\",\n        \"email\": \"Sherwood@rosamond.me\",\n        \"address\": {\n            \"street\": \"Ellsworth Summit\",\n            \"suite\": \"Suite 729\",\n            \"city\": \"Aliyaview\",\n            \"zipcode\": \"45169\",\n            \"geo\": {\n                \"lat\": \"-14.3990\",\n                \"lng\": \"-120.7677\"\n            }\n        },\n        \"phone\": \"{{nuTelefone}}\",\n        \"website\": \"jacynthe.com\",\n        \"company\": {\n            \"name\": \"Abernathy Group\",\n            \"catchPhrase\": \"Implemented secondary concept\",\n            \"bs\": \"e-enable extensible e-tailers\"\n        }\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/users",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Casos de sucesso na API mock de usuários, realizada para os Desafio PB, aqui foram executados e planejados da seguinte maneira:\n\n- Testes exploratórios para entender, pela falta de documentação, como os cenários poderiam funcionar, quais retornos possíveis, responses, tempos médios de resposta, após 30 minutos de exploração da API iniciei a escrita dos cenários;\n    \n- Os cenários estão divididos entre sucesso e insucesso;\n    \n- Os cenários de sucesso validam consistência do contrato quanto a formato, tipo de dado, verbo HTTP;\n    \n- Os cenários de sucesso também validam as regras negociais de acordo com valores de entrada e saída observados nos testes exploratórios."
+		},
+		{
+			"name": "Insucesso",
+			"item": [
+				{
+					"name": "500 - Editar Usuário",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Verifica os Status code de insucesso, isso se dá pois o servidor não está preparado para receber outra numeração de ID além do salvo no mock",
+									"pm.test(\"O Status code deve ser 500\", function () {",
+									"    pm.response.to.have.status(500);",
+									"});",
+									"",
+									"// Verifica o tempo de response, mediana obtida pela execução dos testes exploratórios",
+									"pm.test(\"O tempo de resposta deve ser menor que 400ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(400);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "  {\n        \"id\": 11,\n        \"name\": \"Nicholas Runolfsdottir V\",\n        \"username\": \"Maxime_Nienow\",\n        \"email\": \"Sherwood@rosamond.me\",\n        \"address\": {\n            \"street\": \"Ellsworth Summit\",\n            \"suite\": \"Suite 729\",\n            \"city\": \"Aliyaview\",\n            \"zipcode\": \"45169\",\n            \"geo\": {\n                \"lat\": \"-14.3990\",\n                \"lng\": \"-120.7677\"\n            }\n        },\n        \"phone\": \"586.493.6943 x140\",\n        \"website\": \"jacynthe.com\",\n        \"company\": {\n            \"name\": \"Abernathy Group\",\n            \"catchPhrase\": \"Implemented secondary concept\",\n            \"bs\": \"e-enable extensible e-tailers\"\n        }\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/users/{{id_erro}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users",
+								"{{id_erro}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "500 - Criar Usuário",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Verifica os Status code de insucesso, isso se dá pois o body enviado está mal formatado",
+									"pm.test(\"O Status code deve ser 500\", function () {",
+									"    pm.response.to.have.status(500);",
+									"});",
+									"",
+									"// Verifica o tempo de response, mediana obtida pela execução dos testes exploratórios",
+									"pm.test(\"O tempo de resposta deve ser menor que 400ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(400);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "  {\n        \"id\": dasda,\n        \"name\": \"Nicholas Runolfsdottir V\",\n        \"username\": \"Maxime_Nienow\",\n        \"email\": \"Sherwood@rosamond.me\",\n        \"address\": {\n            \"street\": \"Ellsworth Summit\",\n            \"suite\": \"Suite 729\",\n            \"city\": \"Aliyaview\",\n            \"zipcode\": \"45169\",\n            \"geo\": {\n                \"lat\": \"-14.3990\",\n                \"lng\": \"-120.7677\"\n            }\n        },\n        \"phone\": \"586.493.6943 x140\",\n        \"website\": \"jacynthe.com\",\n        \"company\": {\n            \"name\": \"Abernathy Group\",\n            \"catchPhrase\": \"Implemented secondary concept\",\n            \"bs\": \"e-enable extensible e-tailers\"\n        }\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/users",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Casos de insucesso que foram \"forçados\" pois a API de mock não possuí configuração para a realização de cenários de erro\\[400, ... 4xx\\]."
+		}
+	]
+}

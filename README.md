@@ -1,6 +1,6 @@
 # CASE TÉCNICO | QUALITY ASSURANCE
 
-Projeto de automação de testes funcionais na interface [The Internet](https://the-internet.herokuapp.com/challenging_dom) para os seguintes requisitos:
+Projeto de automação de testes funcionais na interface [The Internet](https://the-internet.herokuapp.com/challenging_dom) para os seguintes requisitos:<br>
 Efetuar um clique em todos os 3 botões apresentados em tela; <br>
 Clicar em todos os botões edit e delete da grid apresentada.
 
@@ -49,4 +49,4 @@ npx cypress run
 ```
 Os resultados serão apresentados no terminal ao fim da execução e um vídeo será disponibilidado para maiores detalhes.
 ## Resultados
-![Alt text](image.png)
+![Resultado](evidence/image.png)
