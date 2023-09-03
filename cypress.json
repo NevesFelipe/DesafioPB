@@ -1,0 +1,5 @@
+{
+  "testFiles": "**/*.feature",
+  "baseUrl": "https://the-internet.herokuapp.com/challenging_dom",
+  "projectId": "zv6t9y"
+}
