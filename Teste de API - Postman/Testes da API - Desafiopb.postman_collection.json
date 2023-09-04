@@ -69,13 +69,12 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{url}}/users/{{id_erro}}",
+							"raw": "{{url}}/users",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
-								"users",
-								"{{id_erro}}"
+								"users"
 							]
 						}
 					},
@@ -102,9 +101,8 @@
 									"});",
 									"",
 									"// Validações do contrato de sucesso",
-									"pm.test(\"O Body deve consistir em um array de objetos\", () => {",
-									"  pm.expect(jsonData).to.be.an(\"array\");",
-									"  pm.expect(jsonData[0]).to.be.a(\"object\");",
+									"pm.test(\"O Body deve consistir em um objeto\", () => {",
+									"  pm.expect(jsonData).to.be.a(\"object\");",
 									"});",
 									"",
 									"// Validando campos esperados em chamada de sucesso, considerando que todas as informações são obigatórias e devem vir preenchidas",

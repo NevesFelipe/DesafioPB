@@ -88,7 +88,7 @@ Os resultados serão apresentados no terminal ao fim da execução e um vídeo s
 ## Resultados
 ![Resultado](evidence/image.png)
 
-## Observações
+### Observações
 O ideal para identificação dos elementos da página seria utilização de ids de testes, porém não haviam no site fornecido.
 
 ## Segunda Parte - Automação de testes de API
@@ -99,6 +99,20 @@ Para a execução dos teste é necessário instalar o [Postman](https://www.post
 
 ## Execução dos testes
 Para realizar a execução dos testes, basta importar a collection e environment disponiveis na pasta <code>Teste de API - Postman</code> desse mesmo projeto.
+Para importar, clique no botão "Import" no canto superior esquerdo.<br>
+![botaoImport](evidence/image-0.png)<br>
+
+Depois, selecione o arquivo collection.json <br>
+![selecionarArquivo](evidence/image-1.png)<br>
+
+Repita os mesmos passos para importar o environment.<br>
+Após realizar as importações, clique nas ações da coleção e selecione "Run collection".<br>
+![acoesColecao](evidence/image-3.png)<br>
+
+E então no botão "Run Testes de API - DesafioPB".<br>
+![runTestes](evidence/image-4.png)
 
 ## Resultados
-Os resultados dos testes podem ser observados a cada execução dentro da ferramenta.
+Os resultados dos testes também podem ser observados a cada execução dentro da ferramenta.<br>
+
+![resultados](evidence/image-2.png)
